@@ -1,4 +1,9 @@
 module ApplicationHelper
+    def logo
+        image_tag("logo.png", :alt => "Sample App", :class => "round")
+    end
+
+
     def title
         base_title = "RoR TSA"
         if @title.nil?

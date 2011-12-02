@@ -1,0 +1,9 @@
+# Logfile created on 2011-11-25 15:15:00 +0100 by logger.rb/25413
+REQUESTING PAGE: GET / with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/about with {} and HTTP headers {"HTTP_REFERER"=>"/"}
+REQUESTING PAGE: GET /help with {} and HTTP headers {"HTTP_REFERER"=>"http://www.example.com/about"}
+REQUESTING PAGE: GET http://www.example.com/contact with {} and HTTP headers {"HTTP_REFERER"=>"/help"}
+REQUESTING PAGE: GET / with {} and HTTP headers {}
+REQUESTING PAGE: GET http://www.example.com/about with {} and HTTP headers {"HTTP_REFERER"=>"/"}
+REQUESTING PAGE: GET /help with {} and HTTP headers {"HTTP_REFERER"=>"http://www.example.com/about"}
+REQUESTING PAGE: GET http://www.example.com/contact with {} and HTTP headers {"HTTP_REFERER"=>"/help"}
