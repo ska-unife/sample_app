@@ -1,11 +1,12 @@
 .container{
-    width: 710px;
+  width: 710px;
+  background: #cff;         
 }
 body{
-background: #cff;
+  background: silver;
 }
 header{
-    padding-top: 20px;
+  padding-top: 20px;
 }
 header ing{
     padding: 1em;
