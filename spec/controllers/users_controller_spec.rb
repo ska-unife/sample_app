@@ -15,6 +15,16 @@ describe UsersController do
       get :show, :id => @user
       assigns(:user).should == @user
     end
+    it "Titolo corretto" do
+      get :show, :id => @user
+      response.should have_selector("title", :content => @user.name )
+    end
+    it "Nome utente nella pagina" do
+      get :show, :id => @user
+      response.should have_selector("h1", :content => @user.name )
+    end
+    
+    
   
   
   
