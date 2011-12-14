@@ -70,6 +70,31 @@ describe User do
     user_with_duplicate_mail.should_not be_valid 
   end
 
+
+  describe "passwords" do
+    before(:each) do
+      @user = User.new(@attr)
+    end     
+    
+    it "should have a password attribute" do
+      @user.should respond_to(:password)
+    end
+    
+    it "should have a password confirmation attribute" do
+      @user.should respond_to(:password_confirmation)
+    end
+  end
+  
+  describe "password encryption" do
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+          
+    it "should have an encrypted password attribute" do
+      @user.should respond_to(:encrypted_password)
+    end
+  end
+
   describe "Validazione password" do
     it "Password vuota" do
       no_password_user = User.new(@attr.merge(:password => "", :password_confirmation => ""))
