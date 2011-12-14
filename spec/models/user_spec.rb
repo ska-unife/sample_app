@@ -97,6 +97,18 @@ describe User do
     it "Manca password criptata" do
       @user.encrypted_password.should_not be_blank
     end
+  
+    describe "has_password? method" do
+      
+      it "Vero se le password matchano" do
+        @user.has_password?(@attr[:password]).should be_true
+      end
+      
+      it "Falso se le password non matchano" do
+        @user.has_password?("invalid").should be_false
+      end
+
+    end
   end
 
   describe "Validazione password" do
