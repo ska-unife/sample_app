@@ -76,11 +76,11 @@ describe User do
       @user = User.new(@attr)
     end     
     
-    it "should have a password attribute" do
+    it "Manca attributo password" do
       @user.should respond_to(:password)
     end
     
-    it "should have a password confirmation attribute" do
+    it "Manca attributo password_confirmation" do
       @user.should respond_to(:password_confirmation)
     end
   end
@@ -90,8 +90,12 @@ describe User do
       @user = User.create!(@attr)
     end
           
-    it "should have an encrypted password attribute" do
+    it "Manca attributo encripted password" do
       @user.should respond_to(:encrypted_password)
+    end
+    
+    it "Manca password criptata" do
+      @user.encrypted_password.should_not be_blank
     end
   end
 
