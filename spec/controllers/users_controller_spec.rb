@@ -23,11 +23,6 @@ describe UsersController do
       get :show, :id => @user
       response.should have_selector("h1", :content => @user.name )
     end
-    
-    
-  
-  
-  
   end
   
   describe "GET 'new'" do
