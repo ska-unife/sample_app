@@ -1,9 +1,11 @@
 .container {
-  width: 710px;
+  background: #ff8b00;
+  width: 750px;
+  padding: 20px;
 }
 
 body {
-  background: #cff;
+  background: silver;
 }
 
 header {
