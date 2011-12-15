@@ -1,0 +1,14 @@
+<% if @user.errors.any? %>
+  <div id="error_explanatio">
+    <h2>
+      <%= pluralize(@user.errors.count, "error") %>
+      non permettono di salvare il nuovo utente.
+    </h2>
+    <p>Problema con i seguenti campi:</p>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

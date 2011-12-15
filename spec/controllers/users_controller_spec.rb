@@ -35,4 +35,29 @@ describe UsersController do
       response.should have_selector("title", :content => "Sign up")
     end
   end
+  
+  describe "POST 'create'" do 
+    describe "failure" do
+      before(:each) do
+        @attr = { :name => "",
+                  :email => "",
+                  :password => "",
+                  :password_confirmation => "" }
+      end    
+      it " controllo che un errore non mi crei un record sbagliato nella tabella user" do
+        lambda do
+          post :create, :user => @attr
+        end.should_not change(User, :count)
+      end   
+      it "Titolo pagina corretto" do
+        post :create, :user => @attr
+        response.should have_selector("title", :content => "Sign up")
+      end
+      it "Errore ritorno pagina registrazione" do
+        post :create, :user => @attr
+        response.should render_template('new')
+      end                  
+    end
+  end
+  
 end
