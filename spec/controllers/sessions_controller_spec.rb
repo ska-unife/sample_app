@@ -40,8 +40,10 @@ describe SessionsController do
       
       it "controllo avvenuto signin" do
         post :create, :session => @attr
-        # vedremo il dafarsi
+        controller.current_user.should == @user
+        controller.should redirect_to(user_path(@user))
       end
+
       it "Redirect ad avvenuto signin" do
         post :create, :session => @attr
         response.should redirect_to(user_path(@user))        
