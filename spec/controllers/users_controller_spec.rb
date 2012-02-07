@@ -36,8 +36,8 @@ describe UsersController do
     end
   end
   
-  describe "POST 'create'" do 
-    describe "failure" do
+  describe "POST 'create' | " do 
+    describe "failure |" do
       before(:each) do
         @attr = { :name => "",
                   :email => "",
@@ -59,7 +59,7 @@ describe UsersController do
       end                  
     end
     
-    describe "success" do
+    describe "success |" do
       before(:each) do
         @attr = { :name => "Mario",
                   :email => "mario@gmail.com",
@@ -79,8 +79,12 @@ describe UsersController do
         post :create, :user => @attr
         flash[:success].should =~ /benvenuti nell\' app/i
       end
-    end  # end di describe "success" do
-         
+      it "controllo login effettivo" do
+        post :create, :user => @attr
+        controller.should be_signed_in
+      end
+
+
+    end  # end di describe "success" do   
   end # end di describe "POST 'create'" do 
-  
 end

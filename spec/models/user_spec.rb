@@ -93,7 +93,7 @@ describe User do
         @user.has_password?("invalid").should be_false
       end
     end
-    describe "Methodo di autenticazione" do
+    describe "Methodo di autenticazione | " do
       it "Password errata" do
         wrong_password = User.authenticate( @attr[:email], "wrondpsw")
         wrong_password.should be_nil
