@@ -3,6 +3,7 @@
     <h2>
       <%= pluralize(@user.errors.count, "error") %>
       non permettono di salvare il nuovo utente.
+      <%= object.class.to_s.underscore.humanize.downcase %>
     </h2>
     <p>Problema con i seguenti campi:</p>
     <ul>

@@ -83,8 +83,110 @@ describe UsersController do
         post :create, :user => @attr
         controller.should be_signed_in
       end
-
-
     end  # end di describe "success" do   
-  end # end di describe "POST 'create'" do 
+  end # end di describe "POST 'create'" do
+
+  describe "GET 'edit' | " do
+    before(:each) do
+      @user = Factory(:user)
+      test_sign_in(@user)
+    end
+    it "Modifica avvenuta con successo" do
+      get :edit, :id => @user
+      response.should be_success
+    end
+    it "Nome utente nella pagina" do
+      get :edit, :id => @user
+      response.should have_selector("title", :content => "Modifica utente" )
+    end
+    it "Avatar" do
+      get :edit, :id => @user
+      gravatar_url = "http://gravatar.com/emails"
+      response.should have_selector("a", :href => gravatar_url, :content => "change" )
+    end
+  end
+
+  describe "PUT 'update' | " do
+    before(:each) do
+      @user = Factory(:user)
+      test_sign_in(@user)
+    end
+
+    describe "Fallito | " do
+      before(:each) do
+        @attr = { :name => "",
+                  :email => "",
+                  :password => "",
+                  :password_confirmation => "" }
+      end    
+      
+      it "deve restituire pagina edit" do
+        put :update, :id => @user, :user => @attr
+        response.should render_template('edit')
+      end
+      it "titolo corretto nella pagina" do
+        put :update, :id => @user, :user => @attr
+        response.should have_selector("title", :content => "Modifica utente" )
+      end
+
+
+    end
+    describe "Successo | " do
+      before(:each) do
+        @attr = { :name => "Nome",
+                  :email => "test@localhost.it",
+                  :password => "123456",
+                  :password_confirmation => "123456" }
+      end    
+      it "Salvataggio modifiche" do
+        put :update, :id => @user, :user => @attr
+        @user.reload
+        @user.name.should == @attr[:name]
+        @user.email.should == @attr[:email]
+      end
+      it "Redirect" do
+        put :update, :id => @user, :user => @attr
+        response.should redirect_to(user_path(@user))
+      end 
+      it "Flash" do
+        put :update, :id => @user, :user => @attr
+        flash[:success].should =~ /updated/
+      end 
+    end
+  end
+  
+  describe "autenticazione per pagine edit/update" do
+    before(:each) do
+      @user = Factory(:user)
+    end
+    
+    describe "utenti non loggati" do
+      it "accesso negato a pagina edit" do
+        get :edit, :id => @user
+        response.should redirect_to(signin_path)
+      end
+
+      it "accesso negato a pagina update" do
+        put :update, :id => @user, :user => {}
+        response.should redirect_to(signin_path)
+      end
+    end
+    
+    describe "Per utenti loggati" do
+      before(:each) do
+        wrong_user = Factory(:user, :email => "user@example.net")
+        test_sign_in(wrong_user)
+      end
+    
+      it "user match per user edit" do
+        get :edit, :id => @user
+        response.should redirect_to(root_path)
+      end
+
+      it "accesso negato a pagina update" do
+        put :update, :id => @user, :user => {}
+        response.should redirect_to(root_path)
+      end
+    end
+  end
 end
