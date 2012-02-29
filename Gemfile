@@ -8,6 +8,7 @@ gem 'rails', '3.0.1'
 gem 'sqlite3-ruby', '1.2.5', :require => 'sqlite3'
 gem 'gravatar_image_tag'
 gem 'will_paginate', '3.0.pre2'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

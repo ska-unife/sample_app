@@ -131,4 +131,45 @@ describe User do
       long_password.should_not be_valid
     end
   end
+
+  describe "associazione Micropost" do
+    before(:each) do
+      @user = User.create(@attr)
+      @mp1 = Factory(:micropost, :user => @user, :created_at => 1.day.ago)
+      @mp2 = Factory(:micropost, :user => @user, :created_at => 1.hour.ago)
+    end
+
+    it "dovrebbe esserci un attributo microposts" do
+      @user.should respond_to(:microposts)
+    end
+
+    it "i microposts devono essere visualizzati nell'ordine corretto" do 
+      @user.microposts.should == [@mp2, @mp1]    
+    end
+
+    it "deve essere distrutto il micropost associato" do
+      @user.destroy
+      [@mp1, @mp2].each do |micropost|
+        Micropost.find_by_id(micropost.id).should be_nil
+      end
+    end
+      
+    describe "status feed" do
+      it "deve esserci un feed" do 
+        @user.should respond_to(:feed)
+      end
+      
+      it "micropost user giusto" do 
+        @user.feed.include?(@mp1).should be_true
+        @user.feed.include?(@mp2).should be_true
+      end     
+      
+      it "micropost user errato" do 
+        @mp3 = Factory(:micropost, 
+                       :user => Factory( :user, :email => Factory.next(:email)))
+        @user.feed.include?(@mp3).should be_false
+     end
+    end
+  end
 end
+
